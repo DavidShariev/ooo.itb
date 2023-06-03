@@ -3,7 +3,7 @@ import React from "react";
 const Notice = ({ text }: { text: string }) => {
   return (
     <div className="my-10 px-5 md:px-10 lg:px-20">
-      <div className="bg-red-600 dark:bg-red-900 float-left  mr-5 flex h-16 w-16 items-center justify-center rounded-lg text-white">
+      <div className=" float-left mr-5  flex h-16 w-16 items-center justify-center rounded-lg bg-primary text-white">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"

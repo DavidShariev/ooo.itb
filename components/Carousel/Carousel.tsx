@@ -110,12 +110,6 @@ const Carousel = () => {
         <Service6 />
         <Service7 />
         <Service8 />
-
-        <div id="8">
-          <h2 className="text-3xl font-bold">
-            Оценка уровня защищенности информационно инфаструктуры
-          </h2>
-        </div>
       </Slider>
     </>
   );

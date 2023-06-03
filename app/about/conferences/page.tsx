@@ -48,7 +48,7 @@ export default function Conferences() {
     );
 
     blogAxios
-      .get(`conferences?${query}&populate=deep`)
+      .get(`conferences?${query}&sort[0]=date%3Adesc&populate=deep`)
       .then(({ data }) => {
         setData(data);
         setLoading(false);

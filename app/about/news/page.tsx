@@ -8,7 +8,7 @@ import Footer from "@/components/Footer";
 async function getData() {
   try {
     const data = await blogAxios
-      .get("news?populate=deep")
+      .get("news?sort[0]=date%3Adesc&populate=deep")
       .then((data) => {
         return data.data;
       })
@@ -68,8 +68,6 @@ export default async function News() {
           )}
         </div>
       </section>
-      ;
-      <Footer />
     </>
   );
 }

@@ -9,7 +9,7 @@ import { AxiosResponse } from "axios";
 async function getData() {
   try {
     const data = await blogAxios
-      .get("presses?populate=deep")
+      .get("presses?sort[0]=date%3Adesc&populate=deep")
       .then((data) => {
         return data.data;
       })
@@ -69,8 +69,6 @@ export default async function Presses() {
           )}
         </div>
       </section>
-      ;
-      <Footer />
     </>
   );
 }

@@ -1,0 +1,16 @@
+.accordion{
+  user-select: none;
+  svg{
+    transition-duration: .3s;
+    
+  }
+}
+
+.accordion__hidden{
+  .accordion__body {
+    height: 0;
+  }
+  svg{
+    transform: rotate(180deg);  
+  }
+}

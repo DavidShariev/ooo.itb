@@ -13,7 +13,6 @@ export default function Home() {
       <ProductSectionOne />
       <ProductSectionTwo />
       <Contact />
-      <Footer />
     </main>
   );
 }

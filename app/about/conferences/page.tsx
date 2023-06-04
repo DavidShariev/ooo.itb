@@ -112,7 +112,7 @@ export default function Conferences() {
           </div>
           <div className="py-5">
             <p className="mb-2 font-semibold lg:text-xl">Теги</p>
-            <div className="flex flex-wrap  px-2">
+            <div className="flex max-w-full flex-wrap px-2">
               {tags.data !== null ? (
                 tags.data?.map(
                   ({

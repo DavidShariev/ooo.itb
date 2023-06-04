@@ -80,12 +80,12 @@ const Page = () => {
                       </div>
                     )}
 
-                    <div className="items-center justify-between sm:flex">
+                    <div className="items-start justify-between sm:flex">
                       <div className="mb-5">
                         <h5 className="mb-3 text-sm font-medium text-body-color">
                           Теги:
                         </h5>
-                        <div className="flex items-center">
+                        <div className="flex flex-wrap">
                           {data.data.attributes.tags.data.map(
                             ({
                               attributes,

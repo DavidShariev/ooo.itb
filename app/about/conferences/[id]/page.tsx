@@ -98,7 +98,7 @@ const Page = () => {
                                 <div key={id}>
                                   <TagButton
                                     text={attributes.text}
-                                    href={`/search/${attributes}`}
+                                    href={`/about/conferences`}
                                   />
                                 </div>
                               );
@@ -165,7 +165,7 @@ const Page = () => {
                               <div key={id}>
                                 <TagButton
                                   text={attributes.text}
-                                  href={`/search/${attributes}`}
+                                  href={`/about/conferences`}
                                 />
                               </div>
                             );

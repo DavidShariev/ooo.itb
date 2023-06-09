@@ -5,22 +5,10 @@ import Navigation from "@/components/Blog/Navigation";
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import Footer from "@/components/Footer";
 import { AxiosResponse } from "axios";
+import pressData from "./pressData";
 
 async function getData() {
-  try {
-    const data = await blogAxios
-      .get("presses?sort[0]=date%3Adesc&populate=deep")
-      .then((data) => {
-        return data.data;
-      })
-      .catch((e) => {
-        return { data: null, meta: null };
-      });
-
-    return data;
-  } catch (e) {
-    return { data: null, meta: null };
-  }
+  return { data: pressData, meta: null };
 }
 
 type new_data = {
@@ -40,13 +28,13 @@ type new_data = {
 };
 
 export default async function Presses() {
-  const { data }: { data: new_data[] | null } = await getData();
+  const { data }: { data: any | null } = await getData();
 
   return (
     <>
       <Breadcrumb
         pageName="Публикации"
-        description="ООО 'ИТБ' ведет активнуют деятельность, организует и учавствует во множестве мероприятий."
+        description="ООО 'ИТБ' ведет активнуют деятельность, организует и учавствует в множестве мероприятий."
       />
       <section id="news" className="py-16 md:py-20 lg:py-24">
         <div className="max container flex justify-between gap-20 lg:flex">
@@ -54,7 +42,7 @@ export default async function Presses() {
 
           {data && (
             <div className="grid max-w-[1000px] grid-cols-1 gap-y-12">
-              {data.map((data) => {
+              {data.map((data: any) => {
                 return (
                   <div key={data.id}>
                     <Card

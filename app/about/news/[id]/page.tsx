@@ -9,6 +9,8 @@ import remarkGfm from "remark-gfm";
 import { blogAxios } from "@/axios";
 import Image from "next/image";
 
+import newsData from "../newsData";
+
 export default function Page() {
   const [data, setData] = useState<any>({
     data: null,
@@ -16,22 +18,21 @@ export default function Page() {
   const [isLoading, setLoading] = useState<any>(false);
 
   const path = usePathname();
-  const id = path.split("/").reverse()[0];
+  const id: number = +path.split("/").reverse()[0];
 
   useEffect(() => {
     setLoading(true);
-    blogAxios(
-      `https://strapi-itb-demo.onrender.com/api/news/${id}?populate=deep`
-    )
-      .then((data) => {
-        setData(data.data);
-        setLoading(false);
-      })
-      .catch((e) => {
-        console.log(e.message);
-        setLoading(false);
+
+    if(newsData[id]){
+      setData({
+        data: newsData[id],
       });
+    }
+    
+    setLoading(false);
   }, []);
+
+  console.log(data);
 
   if (isLoading) {
     return (

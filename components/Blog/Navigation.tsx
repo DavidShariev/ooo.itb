@@ -18,7 +18,7 @@ const Navigation = () => {
           <Link href="/about/conferences">Мероприятия</Link>
         </li>
         <li className="mb-5 font-semibold text-body-color hover:text-primary ">
-          <Link href="/about/licenses">Лицензии и мероприятия</Link>
+          <Link href="/about/licenses">Лицензии и сертификаты</Link>
         </li>
       </ul>
     </div>

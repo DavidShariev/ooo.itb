@@ -9,7 +9,7 @@ const LicensesPage = () => {
     <>
       <Breadcrumb
         pageName="Лицензии и сертификаты"
-        description="полученные ООО 'ИТБ'"
+        description="полученные ООО 'ИТБ'."
       />
 
       <Licenses />

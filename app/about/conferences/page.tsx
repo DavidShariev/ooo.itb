@@ -4,75 +4,54 @@ import Card from "@/components/Blog/Card";
 import Navigation from "@/components/Blog/Navigation";
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import { useEffect, useRef, useState } from "react";
+
+import { conferencesData } from "./conferencesData";
+import tagsData from "./tagsData";
+
 import qs from "qs";
 
 import { blogAxios } from "@/axios";
 
 export default function Conferences() {
   const titleValueInput = useRef<HTMLInputElement>(null);
-  const [tags, setTags] = useState<any>({
-    data: null,
-  });
+
+  const [data, setData] = useState<any>(conferencesData);
   const [filterTags, setFilterTags] = useState<any>([]);
   const [searchParams, setSearchParams] = useState<any>(" ");
-  const [data, setData] = useState<any>({
-    data: null,
-  });
-  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
-    setLoading(true);
-
-    const query = qs.stringify(
-      {
-        filters: {
-          title: {
-            $containsi: searchParams,
-          },
-          $and: [
-            ...filterTags.map((tag: any) => {
-              return {
-                tags: {
-                  text: {
-                    $eqi: tag,
-                  },
-                },
-              };
-            }),
-          ],
-        },
-      },
-      {
-        encodeValuesOnly: true, // prettify URL
-      }
+    setData(
+      conferencesData.filter((el: any) => {
+        return el.attributes.title.includes(searchParams);
+      })
     );
 
-    blogAxios
-      .get(`conferences?${query}&sort[0]=date%3Adesc&populate=deep`)
-      .then(({ data }) => {
-        setData(data);
-        setLoading(false);
-      })
-      .catch((e) => {
-        console.log(e.message);
-        setLoading(false);
+    let result: any[] = conferencesData;
+
+    if (filterTags.length > 0) {
+      filterTags.forEach((tag: any) => {
+        result = result.filter((el: any) => {
+          let returnEl = false;
+
+          el.attributes.tags.data.forEach((elTag: any) => {
+            if (elTag.attributes.text === tag) {
+              returnEl = true;
+            }
+          });
+
+          return returnEl;
+        });
       });
 
-    blogAxios
-      .get(`tags?populate=deep`)
-      .then(({ data }) => {
-        setTags(data);
-      })
-      .catch((e) => {
-        console.log(e.message);
-      });
+      setData(result);
+    }
   }, [searchParams, filterTags]);
 
   return (
     <>
       <Breadcrumb
         pageName="Мероприятия"
-        description="ООО 'ИТБ' ведет активнуют деятельность, организует и учавствует во множестве мероприятий"
+        description="ООО 'ИТБ' ведет активнуют деятельность, организует и учавствует в множестве мероприятий."
       />
 
       <section className="py-16 md:py-20 lg:py-24">
@@ -113,50 +92,46 @@ export default function Conferences() {
           <div className="py-5">
             <p className="mb-2 font-semibold lg:text-xl">Теги</p>
             <div className="flex max-w-full flex-wrap px-2">
-              {tags.data !== null ? (
-                tags.data?.map(
-                  ({
-                    attributes,
-                    id,
-                  }: {
-                    attributes: {
-                      text: string;
-                      [some: string]: any;
-                    };
-                    id: number;
-                  }) => {
-                    return (
-                      <button
-                        className={
-                          "mb-3 mr-3 inline-flex items-center justify-center rounded-md bg-primary  px-4 py-2 text-body-color duration-300 hover:bg-opacity-100 hover:text-white " +
-                          (filterTags.includes(attributes.text)
-                            ? " text-white"
-                            : " bg-opacity-10 ")
+              {tagsData.map(
+                ({
+                  attributes,
+                  id,
+                }: {
+                  attributes: {
+                    text: string;
+                    [some: string]: any;
+                  };
+                  id: number;
+                }) => {
+                  return (
+                    <button
+                      className={
+                        "mb-3 mr-3 inline-flex items-center justify-center rounded-md bg-primary  px-4 py-2 text-body-color duration-300 hover:bg-opacity-100 hover:text-white " +
+                        (filterTags.includes(attributes.text)
+                          ? " text-white"
+                          : " bg-opacity-10 ")
+                      }
+                      key={id}
+                      onClick={function (
+                        e: React.MouseEvent<HTMLButtonElement>
+                      ) {
+                        const btn = event?.target as HTMLElement;
+                        let tags = [...filterTags];
+
+                        if (filterTags.includes(attributes.text)) {
+                          const idDeleteTag = tags.indexOf(attributes.text);
+                          tags.splice(idDeleteTag, 1);
+                        } else {
+                          tags.push(btn.innerText);
                         }
-                        key={id}
-                        onClick={function (
-                          e: React.MouseEvent<HTMLButtonElement>
-                        ) {
-                          const btn = event?.target as HTMLElement;
-                          let tags = [...filterTags];
 
-                          if (filterTags.includes(attributes.text)) {
-                            const idDeleteTag = tags.indexOf(attributes.text);
-                            tags.splice(idDeleteTag, 1);
-                          } else {
-                            tags.push(btn.innerText);
-                          }
-
-                          setFilterTags([...tags]);
-                        }}
-                      >
-                        {attributes.text}
-                      </button>
-                    );
-                  }
-                )
-              ) : (
-                <p className=" text-lg font-bold lg:text-xl">Загрузка...</p>
+                        setFilterTags([...tags]);
+                      }}
+                    >
+                      {attributes.text}
+                    </button>
+                  );
+                }
               )}
             </div>
           </div>
@@ -165,21 +140,20 @@ export default function Conferences() {
         <div className="max container flex justify-between gap-20 lg:flex">
           <Navigation />
 
-          {data.data && (
-            <div className="grid max-w-[1000px] grid-cols-1 gap-y-12">
-              {data.data.map((data: any) => {
-                return (
-                  <div key={data.id}>
-                    <Card
-                      id={data.id}
-                      data={data.attributes}
-                      path="/about/conferences/"
-                    />
-                  </div>
-                );
-              })}
-            </div>
-          )}
+          <div className="grid max-w-[1000px] grid-cols-1 gap-y-12">
+            {data.map((data: any) => {
+              console.log;
+              return (
+                <div key={data.id}>
+                  <Card
+                    id={data.id}
+                    data={data.attributes}
+                    path="/about/conferences/"
+                  />
+                </div>
+              );
+            })}
+          </div>
         </div>
       </section>
     </>

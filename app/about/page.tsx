@@ -10,7 +10,7 @@ export default async function AboutPage() {
     <>
       <Breadcrumb
         pageName="О нас"
-        description="Страница с информацией о компании ООО 'ИТБ'"
+        description="Страница с информацией о компании ООО 'ИТБ'."
       />
 
       <section id="about" className="py-16 md:py-20 lg:py-24">

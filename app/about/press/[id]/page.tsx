@@ -8,6 +8,7 @@ import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import remarkGfm from "remark-gfm";
 import Image from "next/image";
 import { blogAxios } from "@/axios";
+import pressData from "../pressData";
 
 export default function Page() {
   const [data, setData] = useState<any>({
@@ -16,19 +17,18 @@ export default function Page() {
   const [isLoading, setLoading] = useState(false);
 
   const path = usePathname();
-  const id = path.split("/").reverse()[0];
+  const id = +path.split("/").reverse()[0];
 
   useEffect(() => {
     setLoading(true);
-    blogAxios(`presses/${id}?populate=deep`)
-      .then((data) => {
-        setData(data.data);
-        setLoading(false);
-      })
-      .catch((e) => {
-        console.log(e.message);
-        setLoading(false);
+
+    if (pressData[id]) {
+      setData({
+        data: pressData[id],
       });
+    }
+
+    setLoading(false);
   }, []);
 
   if (isLoading) {

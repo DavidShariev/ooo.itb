@@ -11,6 +11,9 @@ import remarkGfm from "remark-gfm";
 import { blogAxios } from "@/axios";
 import Image from "next/image";
 
+import { conferencesData } from "../conferencesData";
+import tagsData from "../tagsData";
+
 const Page = () => {
   const [data, setData] = useState<any>({
     data: null,
@@ -25,24 +28,15 @@ const Page = () => {
 
   useEffect(() => {
     setLoading(true);
-    blogAxios(`conferences/${id}?populate=deep`)
-      .then((data) => {
-        console.log(data);
-        setData(data.data);
-        setLoading(false);
-      })
-      .catch((e) => {
-        console.log(e.message);
-        setLoading(false);
+    if (conferencesData[id]) {
+      setData({
+        data: conferencesData[id],
       });
-
-    blogAxios(`tags?populate=deep`)
-      .then((data) => {
-        setTags(data.data);
-      })
-      .catch((e) => {
-        setLoading(false);
-      });
+    }
+    setTags({
+      data: tagsData,
+    });
+    setLoading(false);
   }, []);
 
   if (isLoading) {

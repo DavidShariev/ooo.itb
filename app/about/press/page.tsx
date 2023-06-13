@@ -34,7 +34,7 @@ export default async function Presses() {
     <>
       <Breadcrumb
         pageName="Публикации"
-        description="ООО 'ИТБ' ведет активнуют деятельность, организует и учавствует в множестве мероприятий."
+        description="компании ООО 'Инновационные Технологии в Бизнесе'."
       />
       <section id="news" className="py-16 md:py-20 lg:py-24">
         <div className="max container flex justify-between gap-20 lg:flex">

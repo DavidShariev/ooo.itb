@@ -48,7 +48,7 @@ export default async function News() {
     <>
       <Breadcrumb
         pageName="Новостная лента"
-        description="Новости нашей организации."
+        description="Новости организации."
       />
       <section id="news" className="py-16 md:py-20 lg:py-24">
         <div className="max container flex justify-between gap-20 lg:flex">

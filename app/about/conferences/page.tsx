@@ -51,7 +51,7 @@ export default function Conferences() {
     <>
       <Breadcrumb
         pageName="Мероприятия"
-        description="ООО 'ИТБ' ведет активнуют деятельность, организует и учавствует в множестве мероприятий."
+        description="ООО 'ИТБ' ведет активнуют деятельность, организует и участвует в множестве мероприятий."
       />
 
       <section className="py-16 md:py-20 lg:py-24">
